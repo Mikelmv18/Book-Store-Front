@@ -1,0 +1,62 @@
+ 
+ <h1 class="welcome">Welcome! Sign up</h1>
+ 
+  <div class="login-box">
+     
+  <div class="form">
+       
+      <form class="login-form" [formGroup]="formdata" (ngSubmit)="signUpUser()">
+        
+      
+        <input type="text" placeholder="*full name" formControlName="fullName" />
+        <small *ngIf="formdata.get('fullName')?.invalid && 
+        formdata.get('fullName')?.touched" class="error-msg">
+  First Name is required. Fields with * are mandatory
+        </small>
+        
+        <input type="text" placeholder="*email" formControlName="email" />
+        <small *ngIf="formdata.get('email')?.invalid && formdata.get('email')?.touched && 
+        !backendErrors['email']" class="error-msg">
+          Email is required in format name.brown&#64;gmail.com. Fields with * are mandatory </small>
+          <small *ngIf="backendErrors['email']" class="error-msg">
+            {{ backendErrors['email'] }}
+          </small>
+          
+          <input type="password" placeholder="*password" formControlName="password" />
+          <small *ngIf="formdata.get('password')?.invalid && formdata.get('password')?.touched 
+          && !backendErrors['password']" class="error-msg">
+            Password is required. Fields with * are mandatory
+          </small>
+          <small *ngIf="backendErrors['password']" class="error-msg">
+            {{ backendErrors['password'] }}
+          </small>
+          
+          <input type="password" placeholder="*confirm password" formControlName="confirmpassword" />
+          <small *ngIf="formdata.get('confirmpassword')?.invalid && 
+          formdata.get('confirmpassword')?.touched && !backendErrors['confirmPassword']" class="error-msg">
+            Confirm Password is required. Fields with * are mandatory
+          </small>
+          <small *ngIf="backendErrors['confirmPassword'] && !backendErrors['password']" class="error-msg">
+            {{ backendErrors['confirmPassword'] }}
+          </small>
+
+        
+      <div class="end-form"> 
+        
+        <small *ngIf="errorFields && !backendErrors['email'] && !backendErrors['password']
+        && !backendErrors['confirmPassword']" class="empty-error-msg">
+          {{emptyFieldMessage}}
+        </small>
+        
+        <button type="submit">Sign up</button>
+        
+        <p class="message">Already logged in? <a routerLink="/login">Log in</a></p>
+      </div>
+        
+
+      
+       
+        </form>
+     </div>
+ </div>
+

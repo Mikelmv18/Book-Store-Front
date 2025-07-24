@@ -1,0 +1,52 @@
+<h1 class="welcome">Welcome! Log in</h1>
+
+<div class="login-box">
+  
+  <div class="form">
+    
+    <form class="login-form" [formGroup]="addBookForm" (ngSubmit)="loginUser()">
+      
+      <input
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+        required
+      />
+      <small *ngIf="addBookForm.get('email')?.invalid && 
+      addBookForm.get('email')?.touched && !backendErrors['description']" class="error-msg">
+        Email is required in format name.brown&#64;gmail.com. Fields with * are mandatory 
+      </small>
+       
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        required
+       />
+       <small *ngIf="addBookForm.get('password')?.invalid && 
+       addBookForm.get('password')?.touched && !backendErrors['description']" class="error-msg">
+        Password is required. Fields with * are mandatory
+      </small>
+
+      <div class="end-form">
+
+      <small *ngIf="backendErrors['description']" class="error-msg-credentials">
+          {{ backendErrors['description'] }}
+      </small>
+
+      <small *ngIf="errorFields && !backendErrors['description']" 
+       class="empty-error-msg">
+        {{emptyFieldMessage}}
+      </small>
+      
+      <button type="submit">Login</button>
+      <p class="message">
+        Not registered?
+        <a routerLink="/signup">Create an account</a>
+      </p>
+
+    </div>
+    
+   </form>
+  </div>
+</div>

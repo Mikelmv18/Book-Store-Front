@@ -1,0 +1,51 @@
+<div *ngIf="selectedBook" class="book-card">
+
+   <img [src]="'http://localhost:8080/' + selectedBook.book_cover" alt="{{ selectedBook.title }}">
+   
+   <div class="book-content"> 
+    <div class="title">
+      <label>Title: </label><h3>{{ selectedBook.title }}</h3>
+    </div>
+
+    <div class="title">
+      <label>Author: </label><h3>{{ selectedBook.author }}</h3>
+    </div>
+
+   <div class="desc-section"> 
+    <hr>
+    
+    <div class="desc-div">
+      <label class="desc-label">Description: </label>
+      <p class="desc-p">{{ selectedBook.description }}</p>
+    </div>
+    
+    <hr>
+  </div>
+    
+    <div class="price">
+      <label>Price:</label><span>{{ selectedBook.price | currency }}</span>
+    </div>
+
+  <div class="add-to-cart">
+    <input
+    type="number"
+    min="1"
+    max="20"
+    [(ngModel)]="selectedQuantity"
+    class="number-type"
+    inputmode="numeric"
+  />
+   <button class="add-btn" (click)="addToCart(selectedBook, selectedQuantity)">
+    Add to Cart</button>
+  </div>
+
+   </div>
+
+</div>
+
+
+<div class="view-cart">
+    <a routerLink="/view-cart">View Cart</a>
+</div>
+
+

@@ -1,0 +1,46 @@
+
+  <app-book 
+    [books]="books" 
+    (selectedBook)="onBookSelected($event)"
+    (addedBook)="onBookAdded($event)" 
+    (deletedBook)="onDeleteBook($event)"
+    (updatedBook)="onBookUpdated($event)">
+  </app-book>
+
+  
+  <div class="filter-container" id="dropwdown-filter">
+    <div class="dropdown" id="dropdown-authors">
+      <button class="btn btn-secondary dropdown-toggle" type="button" 
+              data-bs-toggle="dropdown" aria-expanded="false">
+        Filter by category
+      </button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let book_category of categories">
+          <a class="dropdown-item" 
+             routerLink="/home" 
+             [queryParams]="{category: book_category}">
+            {{book_category}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pagination controls -->
+  <div class="pagination-controls">
+    <button (click)="previousPage()" 
+            [disabled]="page === 0"
+            class="btn btn-outline-primary">
+      <i class="fa-solid fa-arrow-left"></i> 
+    </button>
+    
+    <span class="page-info">Page {{ page + 1 }} of {{ totalPages }}</span>
+    
+    <button (click)="nextPage()" 
+            [disabled]="page + 1 >= totalPages"
+            class="btn btn-outline-primary">
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>

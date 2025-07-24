@@ -1,0 +1,138 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:300);
+
+
+.welcome {
+  text-align: center;
+  position: relative;
+  bottom: -10rem;
+}
+
+.login-box {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height:75vh;
+}
+
+
+.form {
+  background: #FFFFFF;
+  width: 25%;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius:15px;
+}
+
+.form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius:15px;
+}
+
+.form button {
+  text-transform: uppercase;
+  outline: 0;
+  background: #3324be;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  border-radius:15px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form button:hover,.form button:active,.form button:focus {
+  background: #2957d6;
+}
+
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.form .message a {
+  color: #3324be;
+  text-decoration: none;
+}
+
+.error-msg {
+  color: red;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: -0.5rem;
+  left: -0.5rem;
+}
+
+.error-msg-credentials {
+  color: red;
+  position: relative;
+  top: -0.6rem;}
+
+.empty-error-msg {
+  color: red;
+  position: relative;
+  top: -0.4rem;
+}
+
+.end-form {
+  margin-top: 1.1rem;
+}
+
+@media (max-width:550px) {
+  h1 {
+    font-size: 30px;
+    position: relative;
+    top: 7rem;
+  }
+
+  .form {
+    width: 65%;
+  }
+}
+
+@media (min-width:600px) and (max-width:950px) {
+  h1 {
+    font-size: 50px;
+    position: relative;
+    top: 15rem;
+  }
+
+  .form {
+    width: 65%;
+  }
+}
+
+@media (min-width:1000px) and (max-width:1300px) {
+  h1 {
+    font-size: 50px;
+    position: relative;
+    top: 3rem;
+  }
+  .login-box {
+    position: relative;
+    top: -2rem;
+  }
+
+  .form {
+    width: 50%;
+  }
+
+}
+
+
+
+
+
+

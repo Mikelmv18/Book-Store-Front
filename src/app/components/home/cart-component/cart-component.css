@@ -1,0 +1,221 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Main Card Container */
+  .book-card {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    display: flex;
+    background-color: #fff;
+    gap: 2rem;
+    margin-top: 12rem;
+  }
+  
+  /* Book Cover Image */
+  .book-card img {
+    width: 350px;
+    height: 400px;
+    object-fit: fill;
+    flex-shrink: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+
+  /* Content Section */
+  .book-content {
+    flex: 2 1 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top:1rem;
+  }
+  
+  /* Title and Author */
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .title label {
+    font-weight: bold;
+    color: #444;
+    min-width: 70px;
+  }
+  
+  .title h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #222;
+  }
+  
+  /* Description Section */
+  .desc-section {
+    margin: 1rem 0;
+  }
+  
+  .desc-section hr {
+    color: rgb(195, 195, 195);
+  }
+  
+  .desc-div {
+    margin-top: 0.5rem;
+  }
+  
+  .desc-label {
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .desc-p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    word-break: break-all;
+  }
+  
+  /* Price Display */
+  .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  /* Add to Cart Section */
+  .add-to-cart {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  
+  .number-type {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  .buy-btn {
+    padding: 0.6rem 1.2rem;
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buy-btn:hover {
+    background-color: #0056b3;
+  }
+
+  .view-cart {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+  
+  .view-cart a {
+    padding: 10px;
+    width: 140px;
+    text-align: center;
+    background-color: rgb(255, 149, 0);
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+  }
+  
+  .view-cart a:hover {
+    background-color: rgb(230, 120, 0);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  }
+  
+  
+  .add-btn {
+    padding: 8px 16px;
+    border: 2px solid #0968ce;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  }
+  
+  .add-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .add-btn:active {
+    background-color: #00408a;
+    transform: scale(0.98);
+    box-shadow: inset 0 2px 4px rgba(69, 69, 69, 0.3);
+  }
+  
+
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    
+    .book-card {
+      max-width: 600px;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+  
+    .book-card img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+
+    }
+  
+    .book-content {
+      
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 5rem;
+      gap: 1.5rem;
+    }
+  
+    .title h3 {
+      font-size: 1.1rem;
+    }
+  
+    .desc-p {
+      font-size: 0.95rem;
+    }
+  
+    .buy-btn,
+    .number-type {
+      width: 100%;
+    }
+  
+    .add-to-cart {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+  

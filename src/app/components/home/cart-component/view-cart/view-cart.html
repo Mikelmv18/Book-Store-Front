@@ -1,0 +1,28 @@
+<h1 class="my-cart-h1">My Cart</h1>
+
+<div class="cart-books" *ngFor="let item of books">
+  <img [src]="'http://localhost:8080/' + item.book.book_cover" alt="{{ item.book.title }}" />
+
+  <div class="book-info">
+    <h1>{{ item.book.title }}</h1>
+    <span>Total price: {{ item.book.price * item.quantity | currency }}</span>
+
+    <div class="quantity-control">
+      <button (click)="decreaseQuantity(item)">−</button>
+      <input
+        type="number"
+        min="1"
+        max="20"
+        [(ngModel)]="item.quantity"
+        (change)="updateQuantity(item)"
+      />
+      <button (click)="increaseQuantity(item)">+</button>
+    </div>
+
+    <i class="fa-solid fa-trash" (click)="removeBook(item.book.id)"></i>
+
+  </div>
+
+</div>
+
+<span class="total-price">{{totalToBePaid() | currency}}</span>

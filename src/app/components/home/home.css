@@ -1,0 +1,11 @@
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 8%;
+}
+
+.dropdown {
+   position: absolute;
+   top: 6rem;
+   left: 2rem;
+}
