@@ -11,7 +11,7 @@ const USER = 'user';
 })
 export class UserStorage {
   
-  
+
  public saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN);
     window.localStorage.setItem(TOKEN,token);
@@ -63,13 +63,15 @@ export class UserStorage {
     return user ? user.role : '';
   }
   
-  static isTokenExpired(token: string): boolean {
+  static isTokenExpired(token: string | null): boolean {
+    if (!token) return true;
+    
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      const expiry = payload.exp; // Expiration time in seconds
-      return (expiry * 1000) < Date.now(); // Convert to milliseconds and compare
-    } catch (e) {
-      return true; 
+      const expiry = payload.exp;
+      return (Math.floor(Date.now() / 1000)) >= expiry;
+    } catch {
+      return true;
     }
   }
 

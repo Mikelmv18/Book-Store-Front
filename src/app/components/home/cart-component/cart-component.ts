@@ -6,6 +6,7 @@ import { BookDto } from '../../../models/BookDto';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { SharedCartService } from '../../../services/shared-cart';
 import { FormsModule } from '@angular/forms';
+import { OrderBookDto } from '../../../models/OrderBookDto';
 
 @Component({
   selector: 'app-cart-component',
@@ -42,10 +43,9 @@ export class CartComponent implements OnInit {
     }
   }
 
-  addToCart(book: BookDto, quantity: number) {
+  addToCart(book: OrderBookDto, quantity: number) {
     this.sharedService.putBooks(book, quantity);
     this.router.navigateByUrl('/view-cart');
   }
-
 
 }

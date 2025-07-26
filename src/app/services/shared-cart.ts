@@ -1,20 +1,17 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { BookDto } from '../models/BookDto';
 import { isPlatformBrowser } from '@angular/common';
+import { OrderBookDto } from '../models/OrderBookDto';
+import { OrderItemDto } from '../models/OrderItemDto';
 
-export interface CartItem {
-  book: BookDto;
-  quantity: number;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedCartService {
 
-  private items: CartItem[] = [];
-  private cartBooks = new BehaviorSubject<CartItem[]>([]);
+  private items: OrderItemDto[] = [];
+  private cartBooks = new BehaviorSubject<OrderItemDto[]>([]);
   currentBooks = this.cartBooks.asObservable();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
@@ -24,13 +21,13 @@ export class SharedCartService {
     }
   }
 
-  putBooks(book: BookDto, quantity: number): void {
-    const existingItem = this.items.find(item => item.book.id === book.id);
+  putBooks(book: OrderBookDto, quantity: number): void {
+    const existingItem = this.items.find(item => item.bookDto.id === book.id);
     
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
-      this.items.push({ book, quantity });
+      this.items.push({ bookDto: book, quantity });
     }
     
     this.updateLocalStorage();
@@ -59,7 +56,7 @@ export class SharedCartService {
   }
 
   updateQuantity(bookId: number, quantity: number) {
-    const index = this.items.findIndex(i => i.book.id === bookId);
+    const index = this.items.findIndex(i => i.bookDto.id === bookId);
     if (index > -1 && quantity > 0) {
       this.items[index].quantity = quantity;
       this.updateLocalStorage();
@@ -68,7 +65,7 @@ export class SharedCartService {
   }
 
   removeBook(bookId: number) {
-    this.items = this.items.filter(i => i.book.id !== bookId);
+    this.items = this.items.filter(i => i.bookDto.id !== bookId);
     this.updateLocalStorage();
     this.cartBooks.next(this.items);
   }
@@ -77,3 +74,7 @@ export class SharedCartService {
      return this.items.reduce((acc, book) => acc + (book.quantity), 0)
   }
 }
+
+
+
+

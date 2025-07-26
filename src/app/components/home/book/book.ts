@@ -28,6 +28,7 @@ import { BookService } from '../../../services/bookservice';
 import { Router, RouterLink } from '@angular/router';
 import { Modal } from 'bootstrap';
 
+
 @Component({
   selector: 'app-book',
   standalone: true,

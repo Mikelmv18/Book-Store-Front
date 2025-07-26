@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { RouterModule, RouterOutlet, Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { UserStorage } from './services/localstorage/user-storage';
 import { AuthService } from './services/auth/auth';
 import { SharedCartService } from './services/shared-cart';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
   selector: 'app-root',
@@ -22,28 +23,46 @@ export class App implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private authService: AuthService,
-    private sharedService: SharedCartService
+    private sharedService: SharedCartService,
+    private primeng: PrimeNG,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    
+  
     if (isPlatformBrowser(this.platformId)) {
-      
-      console.log("TOKEN initial:",localStorage.getItem('token'));
-      
-      if(UserStorage.isTokenExpired(localStorage.getItem('token'))) {
-        console.log("TOKEN EXPIRED");
-        this.router.navigateByUrl('/login');
-        this.logoutUser();
-      }
-      
-      this.isUserLoggedIn = UserStorage.isLoggedIn();
-      
-      console.log("IS USER LOGGED IN", this.isUserLoggedIn);
-      this.router.events.subscribe(() => {
-        this.isUserLoggedIn = UserStorage.isLoggedIn();
-       
+      // Use setTimeout to ensure this runs after initial rendering
+      setTimeout(() => {
+        this.updateAuthState();
       });
+
+      this.router.events.subscribe(() => {
+        this.updateAuthState();
+      });
+    }
+  }
+
+  private updateAuthState(): void {
+    const token = UserStorage.getToken();
+    
+    if (token && UserStorage.isTokenExpired(token)) {
+      this.logoutUser();
+      return;
+    }
+    
+    const newAuthState = UserStorage.isLoggedIn();
+    if (this.isUserLoggedIn !== newAuthState) {
+      this.isUserLoggedIn = newAuthState;
+      this.cdr.detectChanges();
+    }
+  }
+
+  getOrders() {
+    if(UserStorage.isAdminLoggedIn()) {
+      this.router.navigateByUrl('/admin');
+    }
+    else {
+      this.router.navigateByUrl('/orders');
     }
   }
 

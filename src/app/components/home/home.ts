@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   size: number = 6;
   totalPages: number = 0;
   private routeSub!: Subscription;
+  isLoading: boolean = true; 
 
   categories: string[] = [
     'Roman',
@@ -44,46 +45,37 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSub = this.activatedRoute.queryParams.subscribe(params => {
       this.category = params['category'] || null;
-      this.page = 0; // Reset page when category changes
+      this.page = 0;
       this.loadBooks();
     });
   }
 
-  ngOnDestroy(): void { // Added ngOnDestroy
+  ngOnDestroy(): void {
     if (this.routeSub) {
       this.routeSub.unsubscribe();
     }
   }
 
   loadBooks(): void {
+    this.isLoading = true;
     
-    if (this.category) {
-      this.bookService
-        .getBookByCategory(this.page, this.size, 'createdAt', true, this.category)
-        .subscribe({
-          next: (response) => {
-            this.books = response.content;
-            this.totalPages = response.totalPages;
-            this.cdr.detectChanges(); // Trigger change detection
-          },
-          error: (error) => {
-            console.error('Error loading books by category', error);
-          }
-        });
-    } 
-    
-    else {
-      this.bookService.getBooks(this.page, this.size,'createdAt', true).subscribe({
-        next: (response) => {
-          this.books = response.content;
-          this.totalPages = response.totalPages;
-          this.cdr.detectChanges(); // Trigger change detection
-        },
-        error: (error) => {
-          console.error('Error loading all books', error);
-        }
-      });
-    }
+    const loadObservable = this.category 
+      ? this.bookService.getBookByCategory(this.page, this.size, 'createdAt', true, this.category)
+      : this.bookService.getBooks(this.page, this.size, 'createdAt', true);
+
+    loadObservable.subscribe({
+      next: (response) => {
+        this.books = response.content;
+        this.totalPages = response.totalPages;
+        this.isLoading = false;
+        this.cdr.detectChanges(); // Force change detection
+      },
+      error: (error) => {
+        console.error('Error loading books', error);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   trackByBookId(book: BookDto): number { // Added trackBy function
@@ -99,11 +91,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   onBookAdded(event: BookDto): void {
     setTimeout(() => {
       if (this.books.length >= this.size) {
-        this.page++;         // move to next page
-        this.cdr.detectChanges(); // force UI update
+        this.page++;        
+        this.cdr.detectChanges(); 
       } 
         
-      this.loadBooks();    // in case not going to next page
+      this.loadBooks();  
       
     }, 100);
   }

@@ -1,11 +1,11 @@
 <h1 class="my-cart-h1">My Cart</h1>
 
 <div class="cart-books" *ngFor="let item of books">
-  <img [src]="'http://localhost:8080/' + item.book.book_cover" alt="{{ item.book.title }}" />
+  <img [src]="'http://localhost:8080/' + item.bookDto.book_cover" alt="{{ item.bookDto.title }}" />
 
   <div class="book-info">
-    <h1>{{ item.book.title }}</h1>
-    <span>Total price: {{ item.book.price * item.quantity | currency }}</span>
+    <h1>{{ item.bookDto.title }}</h1>
+    <span>Total price: {{ item.bookDto?.price * item.quantity | currency }}</span>
 
     <div class="quantity-control">
       <button (click)="decreaseQuantity(item)">−</button>
@@ -19,10 +19,42 @@
       <button (click)="increaseQuantity(item)">+</button>
     </div>
 
-    <i class="fa-solid fa-trash" (click)="removeBook(item.book.id)"></i>
+    <button class="delete-btn" (click)="onRemoveClick($event, item.bookDto.id)">
+      <i class="fa-solid fa-trash"></i>
+    </button>
 
+    <div *ngIf="item.message" class="cart-item-message">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ item.message }}
+    </div>
+  </div>
+</div>
+
+<div class="end-checkout">
+
+  <div class="delivery-wrapper" #suggestionContainer>
+    <input
+      class="delivery-address"
+      type="text"
+      [(ngModel)]="deliveryAddress"
+      (input)="onAddressInputChange()"
+      placeholder="Enter address"
+    />
+  
+    <ul *ngIf="showSuggestions" class="suggestions">
+      <li *ngFor="let suggestion of addressSuggestions" (click)="selectSuggestion(suggestion)">
+        {{ suggestion.display_name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="price-and-buttons">
+    <span class="total-price"><span>Total: </span>{{ totalToBePaid() | currency }}</span>
+
+    <div class="button-group">
+      <button class="clear-cart" type="button" (click)="clearCart()">Clear Cart</button>
+      <button class="checkout-btn" type="button" (click)="checkout()">Checkout</button>
+    </div>
   </div>
 
 </div>
 
-<span class="total-price">{{totalToBePaid() | currency}}</span>
