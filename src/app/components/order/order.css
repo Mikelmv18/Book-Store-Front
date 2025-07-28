@@ -1,0 +1,59 @@
+.date-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:2rem;
+    margin-bottom: 3rem;
+}
+
+.cancel-btn {
+    background-color: #e0e0e0; /* light grey */
+    color: #333; /* dark grey text */
+    margin-right: 8px;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #d5d5d5;
+  }
+  
+  .apply-btn {
+    background-color: #1976d2; /* Material Blue 700 */
+    color: #fff;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .apply-btn:hover {
+    background-color: #1565c0; /* Darker blue */
+  }
+  
+  /* order.css */
+
+.status-cell {
+    border-radius: 4px;
+    font-weight: bold;
+    width: 50px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .status-accepted {
+    background-color: #4CAF50 !important;
+   
+  }
+  
+  .status-pending {
+    background-color: #FFEB3B; /* Light yellow */
+    color: #000;
+  }
+  
+  .status-rejected {
+    background-color: #F44336; /* Red */
+  }
+  

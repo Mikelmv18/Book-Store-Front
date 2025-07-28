@@ -1,13 +1,22 @@
 
+<div class="search-container">
+  <form [formGroup]="searchForm" class="search" (ngSubmit)="onSearchBook()">
+    <div class="search-wrapper">
+      <input type="text" placeholder="Search book..." formControlName="searchValue">
+      <button type="submit"><span class="pi pi-search"></span></button>
+    </div>
+  </form>
+ </div>
+  
   <app-book 
-    [books]="books" 
+    [books]="booksResponse" 
     (selectedBook)="onBookSelected($event)"
     (addedBook)="onBookAdded($event)" 
     (deletedBook)="onDeleteBook($event)"
     (updatedBook)="onBookUpdated($event)">
   </app-book>
 
-  
+
   <div class="filter-container" id="dropwdown-filter">
     <div class="dropdown" id="dropdown-authors">
       <button class="btn btn-secondary dropdown-toggle" type="button" 

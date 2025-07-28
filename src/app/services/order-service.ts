@@ -33,4 +33,16 @@ export class OrderService {
     getOrdersByDate(startDate:string, endDate:string,  page: number, size: number, sortBy: string = 'createdAt', ascending: boolean = true): Observable<PaginatedResponse<OrderDto>> {
       return this.http.get<PaginatedResponse<OrderDto>>(`${this.URL}/dates?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}&startDate=${startDate}&endDate=${endDate}`);
     }
+
+    getOrdersOfUser(page: number, size: number, sortBy: string, ascending: boolean):
+    Observable<PaginatedResponse<OrderDto>> {   
+      return this.http.get<PaginatedResponse<OrderDto>>(
+          `${this.URL}/user?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}`
+        );
+    }
+
+    getOrdersOfUserByDate(startDate:string, endDate:string,  page: number, size: number, sortBy: string = 'createdAt', ascending: boolean = true): Observable<PaginatedResponse<OrderDto>> {
+      return this.http.get<PaginatedResponse<OrderDto>>(`${this.URL}/user/dates?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}&startDate=${startDate}&endDate=${endDate}`);
+    }
+
 }

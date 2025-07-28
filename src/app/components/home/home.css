@@ -4,8 +4,115 @@
     margin-top: 8%;
 }
 
-.dropdown {
+/* Container alignment and spacing */
+.filter-container {
    position: absolute;
-   top: 6rem;
-   left: 2rem;
+   top: 1.5rem;
+   left: 1rem;
 }
+  
+  /* Custom dropdown styles */
+  #dropdown-authors .btn {
+    background-color: rgb(54, 54, 157); /* Soft purple */
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #dropdown-authors .btn:hover {
+    background-color:#0775ca ;
+    transform: translateY(-1px);
+  }
+  
+  /* Dropdown menu */
+  #dropdown-authors .dropdown-menu {
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    padding: 10px 0;
+    animation: fadeInDown 0.3s ease;
+  }
+  
+  /* Individual dropdown items */
+  #dropdown-authors .dropdown-item {
+    padding: 10px 20px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  #dropdown-authors .dropdown-item:hover {
+    background-color: #f0f0ff;
+    color: #6c63ff;
+    font-weight: 500;
+  }
+  
+  
+/* Updated Beautiful Search Bar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background: transparent;  
+    margin-top: 2rem;
+    margin-bottom: -1rem;
+}
+  
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, #ffffff, #f2f2f2);
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 500px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .search-wrapper:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .search-wrapper input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    flex-grow: 1;
+    background: transparent;
+    color: #333;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  .search-wrapper input::placeholder {
+    color: #888;
+    font-style: italic;
+  }
+  
+  .search-wrapper button {
+    background-color: #1B9BFF;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .search-wrapper button:hover {
+    background-color: #1487db;
+    transform: scale(1.08);
+  }
+  
+  .search-wrapper .pi-search {
+    color: white;
+    font-size: 20px;
+  }
+  

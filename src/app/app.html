@@ -1,16 +1,23 @@
-
 <div class="app-container">
-
   <nav>
-    <ul>
-      <li><a routerLink="/home">Home</a></li>
-      <li><a routerLink="/signup" *ngIf="!isUserLoggedIn">Register</a></li>
-      <li><a (click)="getOrders()" *ngIf="isUserLoggedIn">Orders</a></li>
-      <li *ngIf="!isUserLoggedIn"><a routerLink="/login">Login</a></li>
-      <li *ngIf="isUserLoggedIn"><a (click)="logoutUser()">Logout</a></li>
-      <li><a class="add-to-cart-link" *ngIf="isUserLoggedIn"><i class="fa-solid fa-cart-shopping" style="color: white;" id="cart-icon">
-        <span>{{totalItems()}}</span></i></a></li>
-    </ul>
+    <div class="nav-container">
+      <div class="nav-links">
+        <ul>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/signup" *ngIf="!isUserLoggedIn">Register</a></li>
+          <li><a (click)="getOrders()" *ngIf="isUserLoggedIn">Orders</a></li>
+          <li *ngIf="!isUserLoggedIn"><a routerLink="/login">Login</a></li>
+          <li *ngIf="isUserLoggedIn"><a (click)="logoutUser()">Logout</a></li>
+          <li>
+            <a class="add-to-cart-link" *ngIf="isUserLoggedIn">
+              <i class="fa-solid fa-cart-shopping" style="color: white;" id="cart-icon">
+                <span>{{ totalItems() }}</span>
+              </i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
 
   <div class="content-container">

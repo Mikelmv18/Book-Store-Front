@@ -14,7 +14,7 @@ body {
 
 }
 
-.login-box {
+.signup-box {
     display: flex;
     justify-content:center;
     align-items: center;
@@ -24,7 +24,7 @@ body {
 
 .form {
   background: #FFFFFF;
-  width: 360px;
+  width: 25%;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -41,6 +41,24 @@ body {
   box-sizing: border-box;
   font-size: 14px;
   border-radius:15px;
+}
+
+.form ::ng-deep p-password input {
+  outline: 0;
+  background: 
+  #f2f2f2;
+  width: 340px;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 15px;
+}
+
+.custom-password .p-password-toggle {
+  transform: translateY(-50%);
+  top: 50% !important;
 }
 
 .form button {
@@ -110,4 +128,10 @@ body {
     position: relative;
     top: 3rem;
   }
+
+  .form {
+    width: 40%;
+  }
+
+  
 }

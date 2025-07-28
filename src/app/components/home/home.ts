@@ -1,27 +1,32 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {BookComponent } from './book/book';
-import { BookDto } from '../../models/BookDto';
+import { BookDto, BookResponseDto } from '../../models/BookDto';
 import { BookService } from '../../services/bookservice';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute,RouterLink, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 @Component({
   selector: 'app-home',
-  imports:[RouterLink,FormsModule,BookComponent,CommonModule,RouterOutlet],
+  imports:[RouterLink,FormsModule,BookComponent,CommonModule,RouterOutlet, ReactiveFormsModule],
   templateUrl: './home.html',
   styleUrl:'./home.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   books: BookDto[] = [];
+  booksResponse: BookResponseDto[] = []
   category: string | null = null;
   page: number = 0;
   size: number = 6;
   totalPages: number = 0;
   private routeSub!: Subscription;
   isLoading: boolean = true; 
+  searchValue: string = '';
+  searchForm: FormGroup;
 
   categories: string[] = [
     'Roman',
@@ -36,17 +41,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     'Self_Help'
   ];
 
+  private searchSubscription!: Subscription;
+
   constructor(
     private bookService: BookService,
     private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef
-  ) {}
-
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private fb: FormBuilder
+  ) {
+    this.searchForm = this.fb.group({
+      searchValue: '',
+    })
+  }
+  
   ngOnInit(): void {
     this.routeSub = this.activatedRoute.queryParams.subscribe(params => {
-      this.category = params['category'] || null;
-      this.page = 0;
-      this.loadBooks();
+      const newCategory = params['category'] || null;
+  
+      // Force reload if the category is different OR same as before
+      if (newCategory !== this.category || this.booksResponse.length === 0) {
+        this.category = newCategory;
+        this.page = 0;
+        this.loadBooks();
+      }
     });
   }
 
@@ -54,6 +72,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.routeSub) {
       this.routeSub.unsubscribe();
     }
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  onSearchBook() {
+    this.searchValue = this.searchForm.value.searchValue ?? '';
+    this.bookService.searchBooks(this.searchValue).subscribe((books) => {
+      this.booksResponse = books;
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    })
   }
 
   loadBooks(): void {
@@ -65,7 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     loadObservable.subscribe({
       next: (response) => {
-        this.books = response.content;
+        this.booksResponse = response.content;
         this.totalPages = response.totalPages;
         this.isLoading = false;
         this.cdr.detectChanges(); // Force change detection
@@ -133,4 +163,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 }
 
+
+function debounceTime(arg0: number): import("rxjs").OperatorFunction<string, unknown> {
+  throw new Error('Function not implemented.');
+}
+
+function distinctUntilChanged(): import("rxjs").OperatorFunction<unknown, unknown> {
+  throw new Error('Function not implemented.');
+}
 

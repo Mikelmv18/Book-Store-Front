@@ -6,11 +6,14 @@ import { UserStorage } from './services/localstorage/user-storage';
 import { AuthService } from './services/auth/auth';
 import { SharedCartService } from './services/shared-cart';
 import { PrimeNG } from 'primeng/config';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { BookService } from './services/bookservice';
+import { BookResponseDto } from './models/BookDto';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule],
+  imports: [CommonModule, RouterOutlet, RouterModule,ReactiveFormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -18,6 +21,7 @@ export class App implements OnInit {
   title = 'Book-Store';
   isUserLoggedIn = false;
   totalAdded: number = 0;
+  books: BookResponseDto[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -25,8 +29,10 @@ export class App implements OnInit {
     private authService: AuthService,
     private sharedService: SharedCartService,
     private primeng: PrimeNG,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private fb: FormBuilder)
+
+  {}
 
   ngOnInit(): void {
   
@@ -69,6 +75,7 @@ export class App implements OnInit {
   logoutUser() {
     this.authService.logout();
   }
+  
 
   totalItems() {
     return this.sharedService.getTotalQuantity();

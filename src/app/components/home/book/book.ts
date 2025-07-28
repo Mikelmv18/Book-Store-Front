@@ -23,10 +23,12 @@ import {
   CurrencyPipe,
   isPlatformBrowser
 } from '@angular/common';
-import { BookDto } from '../../../models/BookDto';
+import { BookDto, BookResponseDto } from '../../../models/BookDto';
 import { BookService } from '../../../services/bookservice';
 import { Router, RouterLink } from '@angular/router';
 import { Modal } from 'bootstrap';
+import { UserStorage } from '../../../services/localstorage/user-storage';
+import { strict } from 'assert';
 
 
 @Component({
@@ -37,7 +39,7 @@ import { Modal } from 'bootstrap';
   styleUrls: ['./book.css']
 })
 export class BookComponent implements OnInit, AfterViewInit {
-  @Input() books: BookDto[] = [];
+  @Input() books: BookResponseDto[] = [];
   @Output() selectedBook = new EventEmitter<BookDto>();
   @Output() addedBook = new EventEmitter<BookDto>();
   @Output() deletedBook = new EventEmitter<BookDto>();
@@ -46,6 +48,7 @@ export class BookComponent implements OnInit, AfterViewInit {
   addform: FormGroup;
   selectedFile: File | null = null;
   isSubmitted: boolean = false;
+  isadminLoggedIn: boolean = false;
 
   @ViewChild('addBookModal') addBookModal!: ElementRef;
   @ViewChildren('editModal') editModals!: QueryList<ElementRef>;
@@ -80,7 +83,11 @@ export class BookComponent implements OnInit, AfterViewInit {
       stock: ['', Validators.required],
       book_cover: [''] 
     });
+
+
   }
+
+  
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -105,6 +112,10 @@ export class BookComponent implements OnInit, AfterViewInit {
         });
       });
     }
+  }
+
+  isAdminLoggedIn(): boolean {
+    return UserStorage.isAdminLoggedIn();
   }
   
   closeAllModals(): void {
@@ -243,7 +254,7 @@ export class BookComponent implements OnInit, AfterViewInit {
     });
   }
 
-  trackByTitle(index: number, book: BookDto): string {
+  trackByTitle(index: number, book: BookResponseDto): string {
     return book.title;
   }
 }

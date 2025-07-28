@@ -1,1 +1,81 @@
-<p>Hello Alvi</p>
+<div class="date-input">
+  <mat-form-field>
+   <mat-label>Enter a date range</mat-label>
+   <mat-date-range-input [rangePicker]="rangePicker">
+     <input matStartDate placeholder="Start date" [(ngModel)]="startDate">
+     <input matEndDate placeholder="End date" [(ngModel)]="endDate">
+   </mat-date-range-input>
+   <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+   <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+   <mat-date-range-picker #rangePicker>
+     <mat-date-range-picker-actions>
+       <button mat-button class="cancel-btn" matDateRangePickerCancel>Cancel</button>
+       <button mat-button class="apply-btn" matDateRangePickerApply (click)="filterOrdersByDate()">
+         Apply</button>
+     </mat-date-range-picker-actions>
+   </mat-date-range-picker>
+  </mat-form-field>
+ </div>
+
+<div class="order-table-container">
+  <p-toast position="top-center"></p-toast>
+
+  <p-table 
+    [value]="orders" 
+    stripedRows 
+    [paginator]="true" 
+    [rows]="rows" 
+    [totalRecords]="totalRecords"
+    [lazy]="true"
+    [first]="first"
+    [rowsPerPageOptions]="[4, 8, 12]"
+    [tableStyle]="{'min-width': '60rem'}"
+    (onLazyLoad)="onPageChange($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Items</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-order>
+      <tr>
+        <td class="address">{{ order.address }}</td>
+        <td 
+        class="order-status"
+        [ngClass]="[
+          'status-cell',
+          order.orderStatus === 'ACCEPTED' ? 'status-accepted' :
+          order.orderStatus === 'PENDING' ? 'status-pending' :
+          order.orderStatus === 'REJECTED' ? 'status-rejected' : ''
+        ]">
+        {{ order.orderStatus }}
+      </td>
+      
+          <p-table 
+            [value]="order.orderItems" 
+            [tableStyle]="{'min-width': '30rem'}" 
+            styleClass="inner-table"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Book Title</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{ item.bookDto.title }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.totalPricePerItem }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+       
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

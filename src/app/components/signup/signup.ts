@@ -4,11 +4,12 @@ import { AuthService } from '../../services/auth/auth';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-signup',
   standalone: true, 
-  imports: [CommonModule, FormsModule, HttpClientModule,ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, HttpClientModule,ReactiveFormsModule,RouterLink,PasswordModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })

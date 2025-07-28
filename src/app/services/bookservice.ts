@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookDto, PaginatedResponse } from '../models/BookDto';
+import { BookDto, BookResponseDto, PaginatedResponse } from '../models/BookDto';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,8 +22,8 @@ export class BookService {
   }
 
   
-  getBooks(page: number, size: number, sortBy: string, ascending: boolean): Observable<PaginatedResponse<BookDto>> {
-    return this.http.get<PaginatedResponse<BookDto>>(
+  getBooks(page: number, size: number, sortBy: string, ascending: boolean): Observable<PaginatedResponse<BookResponseDto>> {
+    return this.http.get<PaginatedResponse<BookResponseDto>>(
       `${this.URL}/?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}`
     );
   }
@@ -49,10 +49,15 @@ export class BookService {
   }
 
   getBookByCategory(page: number, size: number, sortBy: string, ascending: boolean,
-    category:string): Observable<PaginatedResponse<BookDto>> {
+    category:string): Observable<PaginatedResponse<BookResponseDto>> {
 
-      return this.http.get<PaginatedResponse<BookDto>>(`${this.URL}/category?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}&category=${category}`);
+      return this.http.get<PaginatedResponse<BookResponseDto>>(`${this.URL}/category?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}&category=${category}`);
   }
+
+  searchBooks(title:string): Observable<BookResponseDto[]> {
+    return this.http.get<BookResponseDto[]>(`${this.URL}/search?title=${title}`);
+  }
+
   
   
   

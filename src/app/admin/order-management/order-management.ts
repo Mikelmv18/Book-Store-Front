@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-order-management',
@@ -21,7 +22,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ButtonModule,
     PaginatorModule,
     MatFormFieldModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    TableModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './order-management.html',
@@ -51,9 +53,15 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.resetPagination();
+    this.restorePagination();
     this.loadOrders();
-  }
+}
+
+   private restorePagination(): void {
+    const savedPage = localStorage.getItem('orderPage');
+    this.page = savedPage ? parseInt(savedPage) : 0;
+    this.first = this.page * this.rows;
+   }
 
   ngOnDestroy(): void {
     if (this.orderSub) {
