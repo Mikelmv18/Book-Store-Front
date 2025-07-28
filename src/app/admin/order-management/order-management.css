@@ -31,9 +31,40 @@
   margin-top: 10px;
 }
 
-.update-btn {
-  padding: 2px;
+.date-input {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin: 2rem;
 }
+
+.cancel-btn {
+  background-color: #e0e0e0; /* light grey */
+  color: #333; /* dark grey text */
+  margin-right: 8px;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #d5d5d5;
+}
+
+.apply-btn {
+  background-color: #1976d2; /* Material Blue 700 */
+  color: #fff;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.apply-btn:hover {
+  background-color: #1565c0; /* Darker blue */
+}
+
 
 .status-select {
   padding: 0.4rem 0.6rem;

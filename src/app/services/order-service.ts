@@ -29,4 +29,8 @@ export class OrderService {
     updateOrderStatus(id:number, status:string): Observable<OrderDto> {
         return this.http.put<OrderDto>(`${this.URL}/${id}?status=${status}`,{});
     }
+
+    getOrdersByDate(startDate:string, endDate:string,  page: number, size: number, sortBy: string = 'createdAt', ascending: boolean = true): Observable<PaginatedResponse<OrderDto>> {
+      return this.http.get<PaginatedResponse<OrderDto>>(`${this.URL}/dates?page=${page}&size=${size}&sortBy=${sortBy}&ascending=${ascending}&startDate=${startDate}&endDate=${endDate}`);
+    }
 }

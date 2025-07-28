@@ -1,3 +1,25 @@
+
+<div class="date-input">
+ <mat-form-field>
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [rangePicker]="rangePicker">
+    <input matStartDate placeholder="Start date" [(ngModel)]="startDate">
+    <input matEndDate placeholder="End date" [(ngModel)]="endDate">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+  <mat-date-range-picker #rangePicker>
+    <mat-date-range-picker-actions>
+      <button mat-button class="cancel-btn" matDateRangePickerCancel>Cancel</button>
+      <button mat-button class="apply-btn" matDateRangePickerApply (click)="filterOrdersByDate()">
+        Apply</button>
+    </mat-date-range-picker-actions>
+  </mat-date-range-picker>
+ </mat-form-field>
+</div>
+
+
+
 <div class="order-table-container">
     <p-toast position="top-center"></p-toast>
 
@@ -36,12 +58,14 @@
                 <tr>
                   <th>Book Title</th>
                   <th>Quantity</th>
+                  <th>Total Price</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of order.orderItems">
                   <td>{{ item.bookDto.title }}</td>
                   <td>{{ item.quantity }}</td>
+                  <td>{{item.totalPricePerItem}}</td>
                 </tr>
               </tbody>
             </table>
@@ -49,26 +73,16 @@
         </tr>
       </tbody>
     </table>
+
   
-    <div class="pagination">
-        <button 
-          [disabled]="page === 0"
-          (click)="goToPreviousPage()"
-          class="pagination-btn"
-        >
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-      
-        <span>Page {{ page + 1 }} of {{ totalPages }}</span>
-      
-        <button 
-          [disabled]="page + 1 >= totalPages"
-          (click)="goToNextPage()"
-          class="pagination-btn"
-        >
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </div>
+    <p-paginator 
+    [first]="first" 
+    [rows]="rows" 
+    [totalRecords]="totalRecords" 
+    [rowsPerPageOptions]="[4, 8, 12]"
+    (onPageChange)="onPageChange($event)">
+  </p-paginator>
+  
       
   </div>
   
