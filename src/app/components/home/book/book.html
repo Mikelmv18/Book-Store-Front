@@ -80,10 +80,14 @@
                 <input type="text" formControlName="author" />
               </label>
 
-              <label>
-                Category:
-                <input type="text" formControlName="category" />
-              </label>
+              <div class="form-group-row">
+                <label for="category">Category:</label>
+                <select id="category" class="form-select category-select" formControlName="category">
+                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+              </div>
+              
+              
 
               <label class="description-label">
                 Description:
@@ -164,10 +168,14 @@
             <input type="text" formControlName="author" />
           </label>
         
-          <label>
-            Category:
-            <input type="text" formControlName="category" />
-          </label>
+          <div class="form-group-row">
+            <label for="category">Category:</label>
+            <select id="category" class="form-select category-select" formControlName="category">
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            </select>
+          </div>
+          
+          
 
           <label class="description-label">
             Description:

@@ -277,6 +277,26 @@
     justify-content: center;
   }
 
+  .form-group-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+
+  }
+  
+  .form-group-row label {
+    white-space: nowrap;
+    font-weight: bold;
+  }
+  
+  .category-select {
+    width: 200px; /* You can adjust this value */
+    flex-shrink: 0;
+  }
+  
+
 
 
   @media(max-width:390px) {

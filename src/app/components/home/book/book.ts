@@ -49,6 +49,8 @@ export class BookComponent implements OnInit, AfterViewInit {
   selectedFile: File | null = null;
   isSubmitted: boolean = false;
   isadminLoggedIn: boolean = false;
+  selectedCategory: string;
+  categories: string[] = [];
 
   @ViewChild('addBookModal') addBookModal!: ElementRef;
   @ViewChildren('editModal') editModals!: QueryList<ElementRef>;
@@ -62,6 +64,20 @@ export class BookComponent implements OnInit, AfterViewInit {
     private router:Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
+      
+    this.categories = [
+      "Roman",
+      "Non_Fiction",
+      "Science",
+      "History",
+      "Biography",
+      "Fantasy",
+      "Mystery",
+      "Romance",
+      "Children",
+      "Self_Helper"
+    ];
+
     this.formdata = this.fb.group({
       id: [null],
       title: ['', Validators.required],
@@ -88,7 +104,6 @@ export class BookComponent implements OnInit, AfterViewInit {
   }
 
   
-
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       const savedTitle = sessionStorage.getItem('draftTitle');
@@ -148,6 +163,8 @@ export class BookComponent implements OnInit, AfterViewInit {
 
   setBookById(id: number): void {
     this.bookService.getBookById(id).subscribe((book) => {
+      console.log("selected book category",book.category);
+      this.selectedCategory = book.category;
       this.formdata.patchValue(book);
       this.selectedFile = null;
       this.selectedBook.emit(book);
