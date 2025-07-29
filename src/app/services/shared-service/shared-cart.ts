@@ -1,8 +1,8 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { OrderBookDto } from '../models/OrderBookDto';
-import { OrderItemDto } from '../models/OrderItemDto';
+import { OrderBookDto } from '../../models/OrderBookDto';
+import { OrderItemDto } from '../../models/OrderItemDto';
 
 
 @Injectable({

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { OrderDto } from '../../models/OrderDto';
 import { Subscription } from 'rxjs';
-import { OrderService } from '../../services/order-service';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
+import { OrderService } from '../../services/order/order-service';
 
 interface PaginatedResponse<T> {
   content: T[];

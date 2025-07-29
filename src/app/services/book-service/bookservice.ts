@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookDto, BookResponseDto, PaginatedResponse } from '../models/BookDto';
 import { Observable } from 'rxjs';
+import { BookDto, PaginatedResponse, BookResponseDto } from '../../models/BookDto';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +46,10 @@ export class BookService {
     return this.http.post(`${this.URL}/upload`, formData, {
       responseType: 'text' // because the endpoint returns plain text path
     });
+  }
+
+  getCategories(): Observable<Set<string>> {
+    return this.http.get<Set<string>>(`${this.URL}/categories`);
   }
 
   getBookByCategory(page: number, size: number, sortBy: string, ascending: boolean,

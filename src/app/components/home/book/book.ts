@@ -24,11 +24,11 @@ import {
   isPlatformBrowser
 } from '@angular/common';
 import { BookDto, BookResponseDto } from '../../../models/BookDto';
-import { BookService } from '../../../services/bookservice';
 import { Router, RouterLink } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { UserStorage } from '../../../services/localstorage/user-storage';
 import { strict } from 'assert';
+import { BookService } from '../../../services/book-service/bookservice';
 
 
 @Component({

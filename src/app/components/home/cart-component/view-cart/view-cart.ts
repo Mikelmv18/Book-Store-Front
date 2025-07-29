@@ -1,11 +1,11 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { SharedCartService } from '../../../../services/shared-cart';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OrderItemDto } from '../../../../models/OrderItemDto';
 import { OrderDto } from '../../../../models/OrderDto';
-import { OrderService } from '../../../../services/order-service';
 import { Route, Router } from '@angular/router';
+import { OrderService } from '../../../../services/order/order-service';
+import { SharedCartService } from '../../../../services/shared-service/shared-cart';
 
 
 @Component({

@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BookService } from '../../../services/bookservice';
 import { BookDto } from '../../../models/BookDto';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { SharedCartService } from '../../../services/shared-cart';
 import { FormsModule } from '@angular/forms';
 import { OrderBookDto } from '../../../models/OrderBookDto';
+import { BookService } from '../../../services/book-service/bookservice';
+import { SharedCartService } from '../../../services/shared-service/shared-cart';
 
 @Component({
   selector: 'app-cart-component',

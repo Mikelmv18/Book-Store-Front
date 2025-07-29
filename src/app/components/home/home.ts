@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {BookComponent } from './book/book';
 import { BookDto, BookResponseDto } from '../../models/BookDto';
-import { BookService } from '../../services/bookservice';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute,RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BookService } from '../../services/book-service/bookservice';
 
 
 
@@ -28,18 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchValue: string = '';
   searchForm: FormGroup;
 
-  categories: string[] = [
-    'Roman',
-    'Non_Fiction',
-    'Science',
-    'History',
-    'Biography',
-    'Fantasy',
-    'Mystery',
-    'Romance',
-    'Children',
-    'Self_Help'
-  ];
+  categories: Set<string>;
 
   private searchSubscription!: Subscription;
 
@@ -56,6 +45,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
+
+    this.bookService.getCategories().subscribe((response)=>{
+       this.categories = response;
+    });
     this.routeSub = this.activatedRoute.queryParams.subscribe(params => {
       const newCategory = params['category'] || null;
   

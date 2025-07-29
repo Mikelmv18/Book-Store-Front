@@ -4,11 +4,10 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { UserStorage } from './services/localstorage/user-storage';
 import { AuthService } from './services/auth/auth';
-import { SharedCartService } from './services/shared-cart';
 import { PrimeNG } from 'primeng/config';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BookService } from './services/bookservice';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BookResponseDto } from './models/BookDto';
+import { SharedCartService } from './services/shared-service/shared-cart';
 
 @Component({
   selector: 'app-root',

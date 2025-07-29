@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { OrderService } from '../../services/order-service';
 import { OrderDto } from '../../models/OrderDto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +10,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TableModule } from 'primeng/table';
+import { OrderService } from '../../services/order/order-service';
 
 @Component({
   selector: 'app-order-management',

@@ -7,7 +7,6 @@
   margin-left: 2rem;
 }
 
-
 .book-card {
    display: flex;
    flex-direction: column;
@@ -16,6 +15,7 @@
    border-style: groove;
    border-width: 0.4rem;
    border-color: black;
+   border-radius: 9px;
    width: 90%;
    height: 100%;
    padding: 1rem;
