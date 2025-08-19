@@ -1,0 +1,71 @@
+<h1 style="text-align: center; margin-top: 3rem; font-weight: bold;">{{ label() }}</h1>
+
+<form class="add-book-form" [formGroup]="formdata" (ngSubmit)="OnSubmit()">
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required />
+      <mat-error *ngIf="formdata.get('title')?.invalid &&
+      formdata.get('title')?.touched"
+      >
+        Title is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Author</mat-label>
+      <input matInput formControlName="author" required />
+      <mat-error *ngIf="formdata.get('author')?.hasError('required')">
+        Author is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" required>
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formdata.get('category')?.hasError('required')">
+        Category is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="6" placeholder="Write your description..."></textarea>
+      <mat-error *ngIf="formdata.get('description')?.hasError('required')">
+        Description is required
+      </mat-error>
+    </mat-form-field>
+  
+    <div class="file-upload-field">
+      <label for="cover-upload" style="margin-right: 1rem;margin-left: 10rem;">Book Cover:</label>
+      <input id="cover-upload" type="file" (change)="onFileSelected($event)" />
+    </div>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" formControlName="price" required />
+      <mat-error *ngIf="formdata.get('price')?.hasError('required')">
+        Price is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Stock</mat-label>
+      <input matInput type="number" formControlName="stock" required />
+      <mat-error *ngIf="formdata.get('stock')?.hasError('required')">
+        Stock is required
+      </mat-error>
+    </mat-form-field>
+  
+    <div class="add-btn-div">
+      <button mat-raised-button color="primary" type="submit" [disabled]="formdata.invalid">
+        {{ label() }}
+      </button>
+    </div>
+  
+  </form>
+  

@@ -4,8 +4,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { UserStorage } from './services/localstorage/user-storage';
 import { AuthService } from './services/auth/auth';
-import { PrimeNG } from 'primeng/config';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BookResponseDto } from './models/BookDto';
 import { SharedCartService } from './services/shared-service/shared-cart';
 
@@ -27,9 +26,7 @@ export class App implements OnInit {
     private router: Router,
     private authService: AuthService,
     private sharedService: SharedCartService,
-    private primeng: PrimeNG,
-    private cdr: ChangeDetectorRef,
-    private fb: FormBuilder)
+    private cdr: ChangeDetectorRef)
 
   {}
 

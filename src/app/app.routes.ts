@@ -5,6 +5,7 @@ import { Signup } from './components/signup/signup';
 import { CartComponent } from './components/home/cart-component/cart-component';
 import { ViewCart } from './components/home/cart-component/view-cart/view-cart';
 import { Order } from './components/order/order';
+import { AddForm } from './components/add-form/add-form';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,8 @@ export const routes: Routes = [
   { path: 'cart/:bookId', component: CartComponent },
   { path: 'view-cart', component: ViewCart },
   { path: 'orders', component: Order },
+  { path: 'add-form', component: AddForm},
+  {path: 'add-form/:bookId', component: AddForm},
 
   // Lazy load the admin module with its routing
   {

@@ -1,455 +1,228 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 1rem;
-  row-gap: 5rem;
-  margin-top: 5rem;
-  margin-left: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 3rem 2rem;
 }
 
+
 .book-card {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   align-items: center;
-   border-style: groove;
-   border-width: 0.4rem;
-   border-color: black;
-   border-radius: 9px;
-   width: 90%;
-   height: 100%;
-   padding: 1rem;
-   box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.book-card:hover {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
 
 .image {
   width: 100%;
-  height:400px; 
-  object-fit:fill;
-  border-radius: 5px;
-  opacity: 1;
-  display: block;
-  transition: 0.5s ease;
-  backface-visibility: hidden;
-  box-shadow: 0 4px 8px rgba(32, 32, 32, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  height: 350px;
+  object-fit: fill;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 4px 8px rgba(32, 32, 32, 0.15), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 
 .container {
   position: relative;
-  text-align: center;
-  color: white;
-  overflow: hidden;
+  width: 100%;
+}
+
+.container.not-logged-in .book-card:hover .image {
+  transform: scale(1.02);
+  cursor: pointer;
 }
 
 
-.centered {
+.shop-link {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: 0.5s ease;
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
-  padding: 12px 24px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 25px;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 2;
 }
 
-/* Hover Effects */
-.container:hover .image {
-  filter:grayscale(2px);
-  opacity: 0.65;
-}
-
-.container:hover .centered {
+.book-card:hover .shop-link {
   opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
 
-.price label {
-  font-weight: bold;
+.shop-link:hover {
+  background-color: #218838;
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 
-.price {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
+.book-card:hover .image {
+  filter: brightness(90%) blur(0.5px);
+  transform: scale(1.05);
 }
 
-.description-label {
+
+.title, .price {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  text-align: center;
 }
 
-.description-label textarea {
-  margin-left: 0.4rem;
+.title label,
+.price label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+.title h3,
+.price span {
+  font-size: 1.1rem;
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  word-break: break-word;
 }
 
 
-.book-card a img {
-   height: auto;
-   width: 100%;
-   margin-bottom: 1.5rem;
-}
-
-.book-card h4,h2,label,span {
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.crud {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 15px;
 }
 
 
-.title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-  .title h3 {
-   word-break: break-all;
-  }
-  
-  .title label {
-    margin: 0;
-    font-weight: 600;
-    font-size: 20px;
-  }
-  
-  .title h3 {
-    margin: 0;
-    font-size: 20px;
-  }
+.btn-edit {
+  background-color: #f4c128;
+}
+.btn-edit:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
 
-  .price label,span {
-    font-size: 20px;
-  }
-  
-  .buy-btn {
-    width: 80px;
-    padding: 6px;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .crud {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1.5rem;
-  }
-
-  .crud input {
-    font-size: 15px;
-  }
-  
-  .crud button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-  }
-  
-  .crud button i {
-    color: black;
-    pointer-events: none;
-  }
+.btn-delete {
+  background-color: #e74c3c;
+}
+.btn-delete:hover {
+  background-color: #c0392b;
+  transform: scale(1.08);
+}
 
 
-  #x-btn.btn-close {
-    filter: none;
-    background-color:transparent;
-    background-image: none;
-    position: relative;
-    width: 2rem;
-    height: 2rem;
-    border: none;
-    padding: 0;
-  }
-  
+.post-book {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
 
-  #x-btn::before {
-    content: 'X';
-    font-size: 1.2rem;
-    color: black;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1;
-  }
+.add-book-button {
+  background-color: #007bff;
+  color: white;
+  width: 53px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+}
 
-  #save-changes {
-    background-color: rgb(62, 62, 197);
-    color: white;
-  }
-
-  .modal-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 1rem;
-  }
+.add-book-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
 
 
-  .edit-book-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .edit-book-form label {
-    font-weight: bold;
-    font-size:17px;
-   }
-   
-   .edit-book-form input {
-   padding: 4px;
-   border-radius: 5px;
-   border-style: groove;
-   border-color: rgb(194, 191, 191);
-   margin-left: 5px;
-   font-size: 15px;
-  }
- 
-  .add-book-button {
-    position: fixed;
-    bottom: 1rem;
-    right:0.5rem;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1053;
-  }
-
-  .add-book-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .add-book-form input {
-    border-radius: 5px;
-    padding: 3px;
-    border-color: rgb(194, 191, 191);
-    border-style: groove;
-    font-size:15px;
-    margin-left: 5px;
-  }
-
-  .add-book-form label {
-    font-weight: bold;
-    font-size: 17px;
-  }
-
-  #add-book {
-    position: relative;
-    right: 35%;
-  }
-
-  .add-btn-div{
-    display: flex;
-    justify-content: center;
-  }
-
-  .add-btn {
-    background-color: rgb(62, 62, 197);
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    width: 30%;
-   
-  }
-
-
-  .modal-footer {
-    display: flex;
-    justify-content: center;
-  }
-
-  .form-group-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
-
-  }
-  
-  .form-group-row label {
-    white-space: nowrap;
-    font-weight: bold;
-  }
-  
-  .category-select {
-    width: 200px; /* You can adjust this value */
-    flex-shrink: 0;
-  }
-  
-
-
-
-  @media(max-width:390px) {
-
-    .book-grid {
-        
-      display: flex;
-      justify-content: space-around;
-      margin-top: 5rem;
-      row-gap: 5rem;
-      flex-wrap: wrap;
-        
-    }
-    
-    .book-card {
-        border-style: groove;
-        border-width: 0.4rem;
-        border-color: black;
-        width: 100px;
-        height: 480px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .image {
-      width: 225px;
-      height: 250px;
-      margin-top: 0.3rem;
-      border-radius: 5px;
-    }
-
-    .post-book {
-      position: fixed;
-      bottom: 0;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1053;
-    }
-
-    
-    .title label {
-      font-size: 17px;
-    }
-
-
-    .title h3 {
-      margin-top: 0.05rem;
-      font-size: 17px;
-    }
-  
-    .price label,span {
-      font-size: 17px;
-    }
-
-    
-
- }
-
-  
-  
- @media(max-width:550px) {
-
-    .book-grid {
-        
-      display: flex;
-      justify-content: space-around;
-      margin-top: 5rem;
-      row-gap: 5rem;
-      flex-wrap: wrap;
-        
-    }
-    
-    .book-card {
-        border-style: groove;
-        border-width: 0.4rem;
-        border-color: black;
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .add-book-button {
-      position: fixed;
-      bottom: 0;
-      left:87%;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1053;
-    }
-
-    .image {
-      margin-top: 0.5rem;
-    }
-
-
- }
-
- @media(min-width:600px) and (max-width:950px) {
-
-    .book-grid {
-     display: grid;
-     grid-template-columns:repeat(2, 1fr);
-     column-gap: 3rem;
-     row-gap: 5rem;
-     margin-top: 5rem;
-     margin-left: 2rem;
-   }
-
-   
-
- }
-
- @media(min-width:1000px) and (max-width:1300px) {
-
-  .book-grid {
-    display: grid;
-    grid-template-columns:repeat(3, 1fr);
-    column-gap: 3rem;
-    row-gap: 5rem;
-    margin-top: 5rem;
-    margin-left: 2rem;
-  }
-
+@media (max-width: 400px) {
   .book-card {
-    display: flex;
-    justify-content: center;
+    padding: 1rem;
   }
+  .image {
+    height: 220px;
+  }
+  .title label, .price label,
+  .title h3, .price span {
+    font-size: 0.95rem;
+  }
+  .add-book-button {
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
+  }
+}
 
-  .book-card img{
-    width:250px;
-    height: 300px;
+@media (min-width: 600px) and (max-width: 950px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-    
-  
- }
+  .image {
+    height: 260px;
+  }
+}
+
+
+@media (min-width: 951px) and (max-width: 1300px) {
+  .book-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .image {
+    height: 280px;
+  }
+}
+
+
+@media (min-width: 1301px) {
+  .book-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

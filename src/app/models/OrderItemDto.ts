@@ -5,4 +5,4 @@ export interface OrderItemDto {
     quantity: number;
     totalPricePerItem?: number;
     message?: string; 
-  }
+}

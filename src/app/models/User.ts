@@ -6,5 +6,5 @@ export interface User {
     role: 'USER' | 'ADMIN'; 
     createdAt?: Date; 
     updatedAt?: Date; 
-  }
+}
   

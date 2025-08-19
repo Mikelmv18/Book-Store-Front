@@ -1,98 +1,85 @@
 * {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-  }
-  
-  nav {
-    background-color: rgb(17, 17, 51);
-    height: 80px;
-    width: 100%;
-  }
-  
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+nav {
+  background-color: rgb(17, 17, 51);
+  height: 80px;
+  width: 100%;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: white;
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.active, a:hover {
+  background: #1B9BFF;
+  transition: 0.5s;
+}
+
+#cart-icon {
+  transition: transform 0.3s ease;
+}
+
+#cart-icon:hover {
+  transform: scale(1.08);
+}
+
+#cart-icon span {
+  background-color: #FFC107;
+  padding: 3.5px;
+  border-radius: 2px;
+  text-align: center;
+  position: relative;
+  top: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.add-to-cart-link:hover {
+  background-color: transparent;
+}
+
+
+@media (max-width: 500px) {
   nav ul {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-   
+    justify-content: center;
   }
-  
-  nav ul li {
-    display: inline-block;
-    line-height: 80px;
-    margin: 0 5px;
-  }
-  
   nav ul li a {
-    color: white;
-    font-size: 17px;
-    padding: 7px 13px;
-    border-radius: 3px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+      font-size: 16px;
+      padding: 6px 10px;
   }
-  
-  .active, a:hover {
-    background: #1B9BFF;
-    transition: 0.5s;
+}
+
+/* Extra small devices */
+@media (max-width: 350px) {
+  nav ul li a {
+      font-size: 15px;
+      padding: 5px 8px;
   }
-  
-  #cart-icon {
-    transition: transform 0.3s ease;
-  }
-  
-  #cart-icon:hover {
-    transform: scale(1.08);
-  }
-  
-  #cart-icon span {
-    background-color: rgb(128, 77, 0);
-    padding: 3.5px;
-    border-radius: 3px;
-    text-align: center;
-    position: relative;
-    top: 10px;
-    font-size: 10px;
-  }
-  
-  .add-to-cart-link:hover {
-    background-color: transparent;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 500px) {
-    nav {
-      display: flex;
-      justify-content: center;
-    }
-  
-    nav ul li a {
-      font-size: 14px;
-    }
-  
-    .search-container {
-      padding: 0.5rem;
-    }
-  
-    .search-wrapper {
-      max-width: 100%;
-    }
-  
-    .search-wrapper input[type="text"] {
-      font-size: 14px;
-      padding: 10px 14px;
-    }
-  
-    .search-wrapper button {
-      width: 38px;
-      height: 38px;
-    }
-  
-    .search-wrapper .pi-search {
-      font-size: 18px;
-    }
-  }
-  
+}

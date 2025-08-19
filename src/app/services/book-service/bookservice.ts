@@ -48,9 +48,9 @@ export class BookService {
     });
   }
 
-  getCategories(): Observable<Set<string>> {
-    return this.http.get<Set<string>>(`${this.URL}/categories`);
-  }
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.URL}/categories`);
+  }  
 
   getBookByCategory(page: number, size: number, sortBy: string, ascending: boolean,
     category:string): Observable<PaginatedResponse<BookResponseDto>> {

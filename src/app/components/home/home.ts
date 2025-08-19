@@ -1,18 +1,20 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {BookComponent } from './book/book';
 import { BookDto, BookResponseDto } from '../../models/BookDto';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute,RouterLink, RouterOutlet } from '@angular/router';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule} from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookService } from '../../services/book-service/bookservice';
-
-
-
+import { PaginatorModule } from 'primeng/paginator';
+import { SharedMessage } from '../../services/shared-service/shared-message';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-home',
-  imports:[RouterLink,FormsModule,BookComponent,CommonModule,RouterOutlet, ReactiveFormsModule],
+  imports:[FormsModule,BookComponent,CommonModule,ReactiveFormsModule,
+  PaginatorModule,ToastModule],
   templateUrl: './home.html',
   styleUrl:'./home.css'
 })
@@ -23,20 +25,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   page: number = 0;
   size: number = 6;
   totalPages: number = 0;
-  private routeSub!: Subscription;
   isLoading: boolean = true; 
   searchValue: string = '';
   searchForm: FormGroup;
-
-  categories: Set<string>;
-
+  totalRecords: number = 0;
+  categories: string[]  =[];
   private searchSubscription!: Subscription;
+  private routeSub!: Subscription;
 
   constructor(
     private bookService: BookService,
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    private sharedMessage: SharedMessage,
+    private messageService: MessageService,
     private fb: FormBuilder
   ) {
     this.searchForm = this.fb.group({
@@ -45,10 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
-
-    this.bookService.getCategories().subscribe((response)=>{
-       this.categories = response;
-    });
+    
     this.routeSub = this.activatedRoute.queryParams.subscribe(params => {
       const newCategory = params['category'] || null;
   
@@ -60,6 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
 
   ngOnDestroy(): void {
     if (this.routeSub) {
@@ -68,6 +68,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.searchSubscription) {
       this.searchSubscription.unsubscribe();
     }
+  }
+
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    this.loadBooks();
   }
 
   onSearchBook() {
@@ -79,17 +85,45 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
+  
   loadBooks(): void {
-    this.isLoading = true;
+    
+    if (this.sharedMessage.IsBookAdded()) {
+
+      if (this.sharedMessage.OperationType() === 'add') {
+      
+        setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Book added successfully'
+        });
+       });
+    }
+
+    else {
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Book updated successfully'
+        });
+       });
+    }this.sharedMessage.setIsBookAdded(false);
+  }
+
+  
+   this.isLoading = true;
     
     const loadObservable = this.category 
-      ? this.bookService.getBookByCategory(this.page, this.size, 'createdAt', true, this.category)
-      : this.bookService.getBooks(this.page, this.size, 'createdAt', true);
+      ? this.bookService.getBookByCategory(this.page, this.size, 'createdAt', false, this.category)
+      : this.bookService.getBooks(this.page, this.size, 'createdAt', false);
 
     loadObservable.subscribe({
       next: (response) => {
         this.booksResponse = response.content;
         this.totalPages = response.totalPages;
+        this.totalRecords = response.totalElements;
         this.isLoading = false;
         this.cdr.detectChanges(); // Force change detection
       },
@@ -100,11 +134,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  trackByBookId(book: BookDto): number { // Added trackBy function
-    return book.id;
-  }
-  
 
   onBookSelected(updatedBook: BookDto): void {
     const index = this.books.findIndex(b => b.id === updatedBook.id);
@@ -141,27 +170,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
   
-  nextPage(): void {
-    if (this.page + 1 < this.totalPages) {
-      this.page++;
-      this.loadBooks();
-    }
+  trackByBookId(book: BookDto): number {
+    return book.id;
   }
 
-  previousPage(): void {
-    if (this.page > 0) {
-      this.page--;
-      this.loadBooks();
-    }
-  }
-}
-
-
-function debounceTime(arg0: number): import("rxjs").OperatorFunction<string, unknown> {
-  throw new Error('Function not implemented.');
-}
-
-function distinctUntilChanged(): import("rxjs").OperatorFunction<unknown, unknown> {
-  throw new Error('Function not implemented.');
 }
 

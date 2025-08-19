@@ -46,10 +46,13 @@ export class ViewCart implements OnInit {
     if (item.quantity < item.bookDto.stock) {
       item.quantity++;
       item.message = '';
-    } else {
+    } 
+    
+    else {
       item.message = `Only ${item.bookDto.stock} in stock.`;
       setTimeout(() => item.message = '', 4);
     }
+    
     this.sharedService.updateQuantity(item.bookDto.id, item.quantity);
   }
 
@@ -128,7 +131,7 @@ export class ViewCart implements OnInit {
 
     console.log("ordered books",this.order.orderItems)
 
-    this.orderService.addOrder(this.order).subscribe(order => {
+    this.orderService.addOrder(this.order).subscribe(() => {
       this.router.navigateByUrl('/home');
       this.clearCart();
     })

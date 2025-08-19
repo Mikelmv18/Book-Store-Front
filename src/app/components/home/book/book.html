@@ -1,14 +1,23 @@
 
-
 <div class="book-grid">
 
-  <div class="book-card" *ngFor="let book of books; trackBy: trackByTitle">
+ @for (book of books; track book.id) {
+  <div class="book-card">
 
-    <div class="container">
-      <img class="image" [src]="'http://localhost:8080/' + book.book_cover" alt="{{ book.title }}">
-      <a [routerLink]="['/cart', book.id]" class="centered">Shop</a>
-    </div>
-    
+    <div 
+    class="container" 
+    [ngClass]="{
+      'logged-in': isUserLoggedIn(),
+      'not-logged-in': !isUserLoggedIn()
+    }"
+  >
+  
+    <img class="image" [src]="'http://localhost:8080/' + book.book_cover" alt="{{ book.title }}">
+    <a [routerLink]="['/cart', book.id]" class="shop-link" *ngIf="isUserLoggedIn()">Shop</a>
+ 
+  
+  </div>
+  
     
     <div class="title">
       <label>Title: </label><h3>{{ book.title }}</h3>
@@ -25,186 +34,31 @@
 
 
     <div class="crud" *ngIf="isAdminLoggedIn()">
-      <!-- Edit button: triggers modal with unique ID -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        [attr.data-bs-target]="'#staticBackdrop-' + book.id"
-        (click)="setBookById(book.id)"
-      >
+      <!-- Edit button -->
+      <a class="btn-action btn-edit" [routerLink]="['/add-form', book.id]">
         <i class="fa-solid fa-pen-to-square"></i>
-      </button>
-
+      </a>
+    
       <!-- Delete button -->
-      <button (click)="deleteBook(book.id)"><i class="fa-solid fa-trash"></i></button>
+      <button class="btn-action btn-delete" (click)="deleteBook(book.id)">
+        <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
-
-    <!-- Unique modal for each book -->
-    <div
-     #editModal
-     class="modal fade"
-     [id]="'staticBackdrop-' + book.id"
-     data-bs-backdrop="static"
-     data-bs-keyboard="false"
-    tabindex="-1"
-    [attr.aria-labelledby]="'staticBackdropLabel-' + book.id"
-    aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <h5 class="modal-title" [id]="'staticBackdropLabel-' + book.id">Edit book</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div class="modal-body">
-            <form
-              class="edit-book-form"
-              [formGroup]="formdata"
-              (ngSubmit)="OnUpdateBook()"
-            >
-              <label>
-                Title:
-                <input type="text" formControlName="title" />
-              </label>
-
-              <label>
-                Author:
-                <input type="text" formControlName="author" />
-              </label>
-
-              <div class="form-group-row">
-                <label for="category">Category:</label>
-                <select id="category" class="form-select category-select" formControlName="category">
-                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                </select>
-              </div>
-              
-              
-
-              <label class="description-label">
-                Description:
-                <textarea formControlName="description" rows="6" placeholder="Write your description..."
-                class="desc-textarea"></textarea>
-              </label>
-
-              <label>
-                Book Cover:
-                <input
-                  type="file"
-                  (change)="onFileSelected($event)"
-                />
-              </label>
-
-              <label>
-                Price:
-                <input type="number" formControlName="price" />
-              </label>
-
-              <label>
-                Stock:
-                <input type="number" formControlName="stock" />
-              </label>
-
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
+    
   </div>
+}
 </div>
 
 <!-- SINGLE Add button outside loop -->
 <div class="post-book" *ngIf="isAdminLoggedIn()">
-  <button
-    type="button"
+  <a
+    routerLink="/add-form"
     class="add-book-button btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#addBookModal"
   >
     <i class="fa-solid fa-plus"></i>
-  </button>
+  </a>
 </div>
 
-<!-- Add Modal -->
-<div
-  #addBookModal
-  class="modal fade"
-  id="addBookModal"
-  tabindex="-1"
-  aria-labelledby="addBookModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="addBookModalLabel">Add Book</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
 
-      <div class="modal-body">
-        <form class="add-book-form" [formGroup]="addform" (ngSubmit)="OnAddBook()">
-
-          <label>
-            Title:
-            <input type="text" formControlName="title" />
-          </label>
-        
-          <label>
-            Author:
-            <input type="text" formControlName="author" />
-          </label>
-        
-          <div class="form-group-row">
-            <label for="category">Category:</label>
-            <select id="category" class="form-select category-select" formControlName="category">
-              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-            </select>
-          </div>
-          
-          
-
-          <label class="description-label">
-            Description:
-            <textarea formControlName="description" rows="6" placeholder="Write your description..."
-            class="desc-textarea"></textarea>
-          </label>
-        
-          <label>
-            Book Cover:
-            <input type="file" (change)="onFileSelected($event)" />
-          </label>
-        
-          <label>
-            Price:
-            <input type="number" formControlName="price" />
-          </label>
-        
-          <label>
-            Stock:
-            <input type="number" formControlName="stock" />
-          </label>
-        <div class="add-btn-div"> 
-          <button class="add-btn" type="submit" [disabled]="addform.invalid">Add Book</button>
-        </div>
-        </form>
-        
-      </div>
-
-    </div>
-  </div>
-</div>
 
