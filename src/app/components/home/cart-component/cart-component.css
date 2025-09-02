@@ -18,7 +18,7 @@
     margin-top: 12rem;
   }
   
-  /* Book Cover Image */
+
   .book-card img {
     width: 350px;
     height: 400px;
@@ -29,7 +29,6 @@
   }
   
 
-  /* Content Section */
   .book-content {
     flex: 2 1 500px;
     display: flex;
@@ -38,7 +37,6 @@
     margin-top:1rem;
   }
   
-  /* Title and Author */
   .title {
     display: flex;
     align-items: center;

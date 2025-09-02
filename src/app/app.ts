@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
 import { RouterModule, RouterOutlet, Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
@@ -20,6 +20,7 @@ export class App implements OnInit {
   isUserLoggedIn = false;
   totalAdded: number = 0;
   books: BookResponseDto[] = [];
+  menuOpen = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -75,5 +76,9 @@ export class App implements OnInit {
 
   totalItems() {
     return this.sharedService.getTotalQuantity();
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }

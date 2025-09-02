@@ -10,7 +10,6 @@
    top: 1.5rem;
    left: 1rem;
 }
-  
 
 
 .search-container {
@@ -78,8 +77,23 @@
     color: white;
     font-size: 20px;
   }
-  
-  @media (max-width: 600px) {
+
+
+.autocomplete-wrapper {
+  display: flex;
+  position: absolute;
+  top: 1.5rem;   
+  left: 1rem;
+}
+
+.autocomplete-input {
+  width: 200px;          
+  min-width: 200px;   
+}
+
+
+
+ @media (max-width: 600px) {
     .search-wrapper {
      width: 400px;
     }

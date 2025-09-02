@@ -89,11 +89,15 @@ export class AddForm implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+      this.formdata.patchValue({ book_cover: this.selectedFile.name });
+      this.formdata.get('book_cover')?.updateValueAndValidity();
+  
       if (isPlatformBrowser(this.platformId)) {
         sessionStorage.setItem('draftCoverName', this.selectedFile.name);
       }
     }
   }
+  
 
   private onAddBook() {
     if (this.formdata.invalid || !this.selectedFile) {

@@ -9,3 +9,36 @@
 mat-form-field {
     width: 30%;
 }
+
+/* hide default input */
+input[type="file"] {
+    display: none;
+  }
+  
+  /* styled label button */
+  .custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* selected file path */
+  .file-name {
+    margin-left: 1rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #555;
+  }
+  

@@ -24,7 +24,7 @@ body {
 
 .form {
   background: #FFFFFF;
-  width: 25%;
+  width: 30%;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -110,9 +110,13 @@ body {
 }
 
 
-@media (max-width:860px) {
+@media (max-width:880px) {
   .form {
-    width: 260px;
+    width: 55%;
+  }
+
+  .login-form {
+    width: 100%;
   }
 
   .welcome {
@@ -123,15 +127,24 @@ body {
 
 @media (min-width:900px) and (max-width:1400px) {
   
-
   .welcome {
     position: relative;
     top: 3rem;
   }
 
   .form {
-    width: 40%;
+    width: 45%;
   }
 
-  
+}
+
+@media (max-width:500px) {
+  .form {
+    width: 85%;
+  }
+
+  .welcome {
+    position: relative;
+    top: 5rem;
+  }
 }

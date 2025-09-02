@@ -1,5 +1,19 @@
 <p-toast position="top-center"></p-toast>
 
+<div class="autocomplete-wrapper">
+  <p-autocomplete 
+    [(ngModel)]="category"
+    [suggestions]="categories"
+    (completeMethod)="filterCategories($event)"
+    (onSelect)="onCategorySelect($event)"
+    [dropdown]="true"
+    [forceSelection]="true"
+    placeholder="Select category"
+    class="autocomplete-input">
+  </p-autocomplete>
+</div>
+
+
 <div class="search-container">
   <form [formGroup]="searchForm" class="search" (ngSubmit)="onSearchBook()">
     <div class="search-wrapper">
@@ -9,15 +23,14 @@
   </form>
 </div>
   
-  <app-book 
-    [books]="booksResponse" 
-    (selectedBook)="onBookSelected($event)"
-    (addedBook)="onBookAdded($event)" 
-    (deletedBook)="onDeleteBook($event)"
-    (updatedBook)="onBookUpdated($event)">
-  </app-book>
-  
-   
+<app-book 
+ [books]="booksResponse" 
+ (selectedBook)="onBookSelected($event)"
+ (addedBook)="onBookAdded($event)" 
+ (deletedBook)="onDeleteBook($event)"
+ (updatedBook)="onBookUpdated($event)">
+</app-book>
+
 
  <p-paginator 
   [rows]="size" 

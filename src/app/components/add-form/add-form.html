@@ -41,9 +41,13 @@
     </mat-form-field>
   
     <div class="file-upload-field">
-      <label for="cover-upload" style="margin-right: 1rem;margin-left: 10rem;">Book Cover:</label>
-      <input id="cover-upload" type="file" (change)="onFileSelected($event)" />
+      <label for="file-upload" class="custom-file-upload">
+        <i class="fa-solid fa-upload"></i> Choose File
+      </label>
+      <input id="file-upload" type="file" (change)="onFileSelected($event)" />
+      <span class="file-name">{{ selectedFile?.name || 'No file chosen' }}</span>
     </div>
+    
   
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Price</mat-label>

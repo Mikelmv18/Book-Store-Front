@@ -20,13 +20,12 @@
   padding: 1.5rem;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 .book-card:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
-
 
 .image {
   width: 100%;
@@ -108,8 +107,11 @@
 .price span {
   font-size: 1.1rem;
   font-family: 'Poppins', Arial, sans-serif;
-  margin: 0;
   word-break: break-word;
+}
+
+.price span {
+  margin-top: -6px;
 }
 
 
@@ -140,17 +142,18 @@
 .btn-edit {
   background-color: #f4c128;
 }
+
 .btn-edit:hover {
-  transform: scale(1.08);
   box-shadow: 0 4px 8px rgba(0,0,0,0.25);
 }
 
-.btn-delete {
-  background-color: #e74c3c;
+::ng-deep .p-button.p-button-icon-only.p-button-xxl {
+  width: 3rem;
+  height: 3rem;
 }
-.btn-delete:hover {
-  background-color: #c0392b;
-  transform: scale(1.08);
+
+::ng-deep .p-button.p-button-icon-only.p-button-xxl .pi {
+  font-size: 1.3rem; 
 }
 
 
@@ -181,6 +184,15 @@
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
+
+#delete-buttons {
+  margin-top: 2rem;
+}
+
+#cancel-delete{
+  margin-right: 2rem;
+}
+
 
 
 @media (max-width: 400px) {

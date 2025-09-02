@@ -1,64 +1,65 @@
-
 <div class="book-grid">
+  @for (book of books; track book.id) {
+    <div class="book-card">
+      <div class="container" [ngClass]="{
+        'logged-in': isUserLoggedIn(),
+        'not-logged-in': !isUserLoggedIn()
+      }">
+        <img class="image" [src]="'http://localhost:8080/' + book.book_cover" alt="{{ book.title }}">
+        <a [routerLink]="['/cart', book.id]" class="shop-link" *ngIf="isUserLoggedIn()">Shop</a>
+      </div>
 
- @for (book of books; track book.id) {
-  <div class="book-card">
+      <div class="title">
+        <label>Title: </label><h3>{{ book.title }}</h3>
+      </div>
 
-    <div 
-    class="container" 
-    [ngClass]="{
-      'logged-in': isUserLoggedIn(),
-      'not-logged-in': !isUserLoggedIn()
-    }"
-  >
-  
-    <img class="image" [src]="'http://localhost:8080/' + book.book_cover" alt="{{ book.title }}">
-    <a [routerLink]="['/cart', book.id]" class="shop-link" *ngIf="isUserLoggedIn()">Shop</a>
- 
-  
-  </div>
-  
-    
-    <div class="title">
-      <label>Title: </label><h3>{{ book.title }}</h3>
+      <div class="title">
+        <label>Author: </label><h3>{{ book.author }}</h3>
+      </div>
+
+      <div class="price">
+        <label>Price:</label><span>{{ book.price | currency }}</span>
+      </div>
+
+      <div class="crud" *ngIf="isAdminLoggedIn()">
+        <a class="btn-action btn-edit" [routerLink]="['/add-form', book.id]">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+      
+        <p-button 
+         (click)="showDialog(book)" 
+         icon="pi pi-trash" 
+         severity="danger" 
+         styleClass="p-button-rounded p-button-icon-only p-button-xxl"
+         />
+      
+     </div>
     </div>
-
-    <div class="title">
-      <label>Author: </label><h3>{{ book.author }}</h3>
-    </div>
-
-
-    <div class="price">
-      <label>Price:</label><span>{{ book.price | currency }}</span>
-    </div>
-
-
-    <div class="crud" *ngIf="isAdminLoggedIn()">
-      <!-- Edit button -->
-      <a class="btn-action btn-edit" [routerLink]="['/add-form', book.id]">
-        <i class="fa-solid fa-pen-to-square"></i>
-      </a>
-    
-      <!-- Delete button -->
-      <button class="btn-action btn-delete" (click)="deleteBook(book.id)">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-    </div>
-    
-  </div>
-}
+  }
 </div>
 
-<!-- SINGLE Add button outside loop -->
+<p-dialog 
+     header="Delete Book" 
+    [(visible)]="visible" 
+    [style]="{ width: '35rem'}" 
+    [modal]="true" 
+    [draggable]="false" 
+    [resizable]="false"
+    >
+  <div class="flex flex-col items-center text-center p-6 space-y-6">
+    <span class="p-text-secondary text-lg">
+      Are you sure you want to delete {{ selectedBookToDelete?.title }} ?
+    </span>
+
+    <div class="flex justify-center gap-4" id="delete-buttons">
+      <p-button label="Cancel" severity="secondary" (click)="visible = false"  id="cancel-delete"></p-button>
+      <p-button label="Confirm" (click)="confirmDeleteBook()"></p-button>
+    </div>
+  </div>
+</p-dialog>
+
 <div class="post-book" *ngIf="isAdminLoggedIn()">
-  <a
-    routerLink="/add-form"
-    class="add-book-button btn btn-primary"
-  >
+  <a routerLink="/add-form" class="add-book-button btn btn-primary">
     <i class="fa-solid fa-plus"></i>
   </a>
 </div>
-
-
-
-
